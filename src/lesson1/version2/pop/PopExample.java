@@ -6,10 +6,10 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Scanner;
 
-/// 支持逆波兰表达式的面向过程计算器示例
+/** 支持逆波兰表达式的面向过程计算器示例 */
 public class PopExample {
 
-    /// 启动计算器交互程序
+    /** 启动计算器交互程序 */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -19,7 +19,7 @@ public class PopExample {
         }
     }
 
-    /// 将中缀表达式解析为逆波兰表达式
+    /** 将中缀表达式解析为逆波兰表达式 */
     private static List<String> parse(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Expression must not be blank");
@@ -104,7 +104,7 @@ public class PopExample {
         return output;
     }
 
-    /// 执行逆波兰表达式并返回计算结果
+    /** 执行逆波兰表达式并返回计算结果 */
     private static Double compute(List<String> reversePolishExpression) {
         if (reversePolishExpression == null || reversePolishExpression.isEmpty()) {
             throw new IllegalArgumentException("Reverse Polish expression must not be empty");
@@ -144,7 +144,7 @@ public class PopExample {
         return values.pop();
     }
 
-    /// 解析数字的结束位置
+    /** 解析数字的结束位置 */
     private static int parseNumberEnd(String input, int start) {
         int position = start;
         boolean hasDigits = false;
@@ -170,18 +170,18 @@ public class PopExample {
         return position;
     }
 
-    /// 判断字符是否为支持的二元运算符
+    /** 判断字符是否为支持的二元运算符 */
     private static boolean isOperator(char value) {
         return value == '+' || value == '-' || value == '*' || value == '/';
     }
 
-    /// 判断字符串是否为支持的运算符，包括一元正负号
+    /** 判断字符串是否为支持的运算符，包括一元正负号 */
     private static boolean isOperator(String value) {
         return value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/")
                 || value.equals("u+") || value.equals("u-");
     }
 
-    /// 根据运算符优先级判断是否应先弹出栈顶运算符
+    /** 根据运算符优先级判断是否应先弹出栈顶运算符 */
     private static boolean shouldPop(String current, Deque<String> operators) {
         if (operators.isEmpty() || operators.peek().equals("(")) {
             return false;
@@ -191,7 +191,7 @@ public class PopExample {
                 || (precedence(top) == precedence(current) && !isUnary(current));
     }
 
-    /// 返回运算符的优先级
+    /** 返回运算符的优先级 */
     private static int precedence(String operator) {
         if (operator.equals("u+") || operator.equals("u-")) {
             return 3;
@@ -202,12 +202,12 @@ public class PopExample {
         return 1;
     }
 
-    /// 判断运算符是否为一元运算符
+    /** 判断运算符是否为一元运算符 */
     private static boolean isUnary(String operator) {
         return operator.equals("u+") || operator.equals("u-");
     }
 
-    /// 执行一个二元运算
+    /** 执行一个二元运算 */
     private static double apply(double left, String operator, double right) {
         switch (operator) {
             case "+":
@@ -223,22 +223,22 @@ public class PopExample {
         }
     }
 
-    /// 执行加法
+    /** 执行加法 */
     private static Double add(double left, double right) {
         return left + right;
     }
 
-    /// 执行减法
+    /** 执行减法 */
     private static Double sub(double left, double right) {
         return left - right;
     }
 
-    /// 执行乘法
+    /** 执行乘法 */
     private static Double mul(double left, double right) {
         return left * right;
     }
 
-    /// 执行除法
+    /** 执行除法 */
     private static Double div(double left, double right) {
         return left / right;
     }

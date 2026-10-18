@@ -7,19 +7,19 @@ import lesson1.version2.oop.operation.Operation;
 
 import java.util.Map;
 
-/// 表达式解析器，用于将用户的输入构建为 Expression 实现
+/** 表达式解析器，用于将用户的输入构建为 Expression 实现 */
 public class ExpressionParser {
 
     private final Map<Character, Operation> operations;
     private String input;
     private int position;
 
-    /// 创建表达式解析器，并保存可用的运算符实现
+    /** 创建表达式解析器，并保存可用的运算符实现 */
     public ExpressionParser(Map<Character, Operation> operations) {
         this.operations = operations;
     }
 
-    /// 解析完整输入，并检查输入是否已经全部消费
+    /** 解析完整输入，并检查输入是否已经全部消费 */
     public Expression parse(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Expression must not be blank");
@@ -36,7 +36,7 @@ public class ExpressionParser {
         return expression;
     }
 
-    /// 根据运算符优先级构建表达式树；相同优先级按从左到右结合
+    /** 根据运算符优先级构建表达式树；相同优先级按从左到右结合 */
     private Expression parseExpression() {
         return parseExpression(Integer.MIN_VALUE);
     }
@@ -60,7 +60,7 @@ public class ExpressionParser {
         }
     }
 
-    /// 解析数字、括号表达式以及一元正负号
+    /** 解析数字、括号表达式以及一元正负号 */
     private Expression parseFactor() {
         skipWhitespace();
         if (match('+')) {
@@ -80,7 +80,7 @@ public class ExpressionParser {
         return parseNumber();
     }
 
-    /// 解析普通数字和小数
+    /** 解析普通数字和小数 */
     private Expression parseNumber() {
         skipWhitespace();
         int start = position;
@@ -106,7 +106,7 @@ public class ExpressionParser {
         }
     }
 
-    /// 根据运算符创建二元表达式，并校验运算符是否受支持
+    /** 根据运算符创建二元表达式，并校验运算符是否受支持 */
     private Expression createBinaryExpression(Expression left, char symbol, Expression right) {
         Operation operation = operations.get(symbol);
         if (operation == null) {
@@ -115,7 +115,7 @@ public class ExpressionParser {
         return new ComplicatedExpression(left, operation, right);
     }
 
-    /// 如果当前位置匹配指定字符，则消费该字符并返回 true
+    /** 如果当前位置匹配指定字符，则消费该字符并返回 true */
     private boolean match(char expected) {
         if (position < input.length() && input.charAt(position) == expected) {
             position++;
@@ -124,7 +124,7 @@ public class ExpressionParser {
         return false;
     }
 
-    /// 跳过当前位置开始的所有空白字符
+    /** 跳过当前位置开始的所有空白字符 */
     private void skipWhitespace() {
         while (position < input.length() && Character.isWhitespace(input.charAt(position))) {
             position++;

@@ -4,12 +4,12 @@ import lesson1.version1.oop.operation.*;
 
 import java.util.Map;
 
-/// 计算器类
+/** 计算器类 */
 public class Calculator {
 
     private final Map<Character, Operation> operations;
 
-    /// 创建并注册基础四则运算
+    /** 创建并注册基础四则运算 */
     public Calculator() {
         operations = Map.of(
                 AddOperation.SYMBOL, new AddOperation(),
@@ -19,7 +19,7 @@ public class Calculator {
         );
     }
 
-    /// 计算表达式的值
+    /** 计算表达式的值 */
     public double calculate(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Invalid expression: " + input);
@@ -42,7 +42,7 @@ public class Calculator {
         return operation.apply(left, right);
     }
 
-    /// 将字符串切分为数字后校验其合法性
+    /** 将字符串切分为数字后校验其合法性 */
     private double parseNumber(String value, String originalInput) {
         try {
             return Double.parseDouble(value);
@@ -51,7 +51,7 @@ public class Calculator {
         }
     }
 
-    /// 找到第一个运算符的位置，并跳过可能出现在首位的负号
+    /** 找到第一个运算符的位置，并跳过可能出现在首位的负号 */
     private int findOperatorPosition(String expression) {
         for (int i = 1; i < expression.length(); i++) {
             if (operations.containsKey(expression.charAt(i))) {

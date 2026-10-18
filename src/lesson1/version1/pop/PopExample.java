@@ -1,10 +1,10 @@
 package lesson1.version1.pop;
 import java.util.Scanner;
 
-/// 面向过程计算器示例
+/** 面向过程计算器示例 */
 public class PopExample {
 
-    /// 启动计算器交互程序
+    /** 启动计算器交互程序 */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -13,7 +13,7 @@ public class PopExample {
         }
     }
 
-    /// 解析并计算二元表达式
+    /** 解析并计算二元表达式 */
     private static Double parseAndCompute(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Invalid input format. Expected: <number> <operator> <number>");
@@ -44,7 +44,7 @@ public class PopExample {
         }
     }
 
-    /// 将字符串切分为数字后校验其合法性
+    /** 将字符串切分为数字后校验其合法性 */
     private static double parseNumber(String value) {
         try {
             return Double.parseDouble(value);
@@ -59,7 +59,7 @@ public class PopExample {
     }
 
 
-    /// 找到第一个运算符的位置，并跳过可能出现在首位的负号
+    /** 找到第一个运算符的位置，并跳过可能出现在首位的负号 */
     private static int findOperatorPosition(String expression) {
         for (int i = 1; i < expression.length(); i++) {
             if (expression.charAt(i) == '+'
@@ -72,22 +72,22 @@ public class PopExample {
         return -1;
     }
 
-    /// 执行加法
+    /** 执行加法 */
     private static Double add(double left, double right) {
         return left + right;
     }
 
-    /// 执行减法
+    /** 执行减法 */
     private static Double sub(double left, double right) {
         return left - right;
     }
 
-    /// 执行乘法
+    /** 执行乘法 */
     private static Double mul(double left, double right) {
         return left * right;
     }
 
-    /// 执行除法
+    /** 执行除法 */
     private static Double div(double left, double right) {
         return left / right;
     }

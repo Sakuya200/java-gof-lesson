@@ -2,14 +2,14 @@ package lesson1.version3.pop;
 
 import java.util.*;
 
-/// 支持系统函数和自定义函数的面向过程计算器示例
+/** 支持系统函数和自定义函数的面向过程计算器示例 */
 public class PopExample {
 
-    /// 函数的参数数量，系统函数和自定义函数都在此注册
+    /** 函数的参数数量，系统函数和自定义函数都在此注册 */
     private static final Map<String, Integer> FUNCTION_ARITIES = new HashMap<>();
-    /// 自定义函数的参数名列表，按定义顺序保存
+    /** 自定义函数的参数名列表，按定义顺序保存 */
     private static final Map<String, List<String>> CUSTOM_PARAMETERS = new HashMap<>();
-    /// 自定义函数的逆波兰表达式体，使用参数名引用参数
+    /** 自定义函数的逆波兰表达式体，使用参数名引用参数 */
     private static final Map<String, List<String>> CUSTOM_BODIES = new HashMap<>();
 
     static {
@@ -31,12 +31,12 @@ public class PopExample {
         }
     }
 
-    /// 将中缀表达式解析为逆波兰表达式
+    /** 将中缀表达式解析为逆波兰表达式 */
     public static List<String> parse(String input) {
         return parse(input, Set.of());
     }
 
-    /// 将表达式解析为逆波兰表达式，并允许函数体引用参数变量
+    /** 将表达式解析为逆波兰表达式，并允许函数体引用参数变量 */
     private static List<String> parse(String input, Set<String> parameters) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Expression must not be blank");
@@ -182,7 +182,7 @@ public class PopExample {
         return output;
     }
 
-    /// 通过扫描括号和逗号定位函数参数边界
+    /** 通过扫描括号和逗号定位函数参数边界 */
     private static List<String> parseExpression(String input, int start, Set<String> parameters) {
         int depth = 0;
         int position = start;
@@ -203,7 +203,7 @@ public class PopExample {
         return parse(input.substring(start, position), parameters);
     }
 
-    /// 返回下一个函数参数的起始位置
+    /** 返回下一个函数参数的起始位置 */
     private static int nextExpressionPosition(String input, int start) {
         int depth = 0;
         int position = start;
@@ -224,12 +224,12 @@ public class PopExample {
         return position;
     }
 
-    /// 执行逆波兰表达式
+    /** 执行逆波兰表达式 */
     public static Double compute(List<String> reversePolishExpression) {
         return compute(reversePolishExpression, new HashMap<>());
     }
 
-    /// 使用变量绑定执行逆波兰表达式
+    /** 使用变量绑定执行逆波兰表达式 */
     private static Double compute(List<String> expression, Map<String, Double> variables) {
         if (expression == null || expression.isEmpty()) {
             throw new IllegalArgumentException("Reverse Polish expression must not be empty");
@@ -258,7 +258,7 @@ public class PopExample {
         return values.pop();
     }
 
-    /// 定义用户函数，函数体使用参数名引用参数
+    /** 定义用户函数，函数体使用参数名引用参数 */
     public static void defineFunction(String name, String[] parameterNames, String body) {
         validateName(name);
         if (parameterNames == null || body == null) {
@@ -278,7 +278,7 @@ public class PopExample {
         FUNCTION_ARITIES.put(name, parameterNames.length);
     }
 
-    /// 解析函数定义命令并注册用户函数
+    /** 解析函数定义命令并注册用户函数 */
     private static void defineFunction(String input) {
         String definition = input.trim().substring(4);
         int equalsPosition = definition.indexOf('=');
@@ -301,7 +301,7 @@ public class PopExample {
         defineFunction(name, parameters, body);
     }
 
-    /// 执行一个函数调用
+    /** 执行一个函数调用 */
     private static void applyFunction(String token, Deque<Double> values) {
         String[] parts = token.substring(2).split(":", 2);
         String name = parts[0];
@@ -334,7 +334,7 @@ public class PopExample {
         values.push(compute(body, variables));
     }
 
-    /// 应用一个二元或一元运算
+    /** 应用一个二元或一元运算 */
     private static void applyOperator(String operator, Deque<Double> values) {
         if (operator.equals("u+") || operator.equals("u-")) {
             if (values.isEmpty()) {
@@ -367,7 +367,7 @@ public class PopExample {
         }
     }
 
-    /// 校验函数是否存在且参数数量正确
+    /** 校验函数是否存在且参数数量正确 */
     private static void validateFunction(String name, int argumentCount) {
         Integer arity = FUNCTION_ARITIES.get(name);
         if (arity == null) {
@@ -379,17 +379,17 @@ public class PopExample {
         }
     }
 
-    /// 生成函数调用令牌
+    /** 生成函数调用令牌 */
     private static String functionToken(String name, int arity) {
         return "f:" + name + ":" + arity;
     }
 
-    /// 生成变量令牌
+    /** 生成变量令牌 */
     private static String variableToken(String name) {
         return "v:" + name;
     }
 
-    /// 解析数字令牌
+    /** 解析数字令牌 */
     private static double parseNumber(String token) {
         try {
             return Double.parseDouble(token);
@@ -398,7 +398,7 @@ public class PopExample {
         }
     }
 
-    /// 解析数字的结束位置
+    /** 解析数字的结束位置 */
     private static int parseNumberEnd(String input, int start) {
         int position = start;
         boolean hasDigits = false;
@@ -420,17 +420,17 @@ public class PopExample {
         return position;
     }
 
-    /// 判断字符是否为标识符首字符
+    /** 判断字符是否为标识符首字符 */
     private static boolean isIdentifierStart(char value) {
         return Character.isLetter(value) || value == '_';
     }
 
-    /// 判断字符是否为标识符组成字符
+    /** 判断字符是否为标识符组成字符 */
     private static boolean isIdentifierPart(char value) {
         return Character.isLetterOrDigit(value) || value == '_';
     }
 
-    /// 校验标识符
+    /** 校验标识符 */
     private static void validateName(String name) {
         if (name == null || name.isBlank() || !isIdentifierStart(name.charAt(0))) {
             throw new IllegalArgumentException("Invalid function or parameter name: " + name);
@@ -442,18 +442,18 @@ public class PopExample {
         }
     }
 
-    /// 判断字符是否为运算符
+    /** 判断字符是否为运算符 */
     private static boolean isOperator(char value) {
         return value == '+' || value == '-' || value == '*' || value == '/';
     }
 
-    /// 判断令牌是否为运算符
+    /** 判断令牌是否为运算符 */
     private static boolean isOperator(String value) {
         return value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/")
                 || value.equals("u+") || value.equals("u-");
     }
 
-    /// 判断是否应该弹出栈顶运算符
+    /** 判断是否应该弹出栈顶运算符 */
     private static boolean shouldPop(String current, Deque<String> operators) {
         if (operators.isEmpty() || operators.peek().equals("(")) {
             return false;
@@ -463,7 +463,7 @@ public class PopExample {
                 || (precedence(top) == precedence(current) && !isUnary(current));
     }
 
-    /// 获取运算符优先级
+    /** 获取运算符优先级 */
     private static int precedence(String operator) {
         if (operator.equals("u+") || operator.equals("u-")) {
             return 3;
@@ -474,12 +474,12 @@ public class PopExample {
         return 1;
     }
 
-    /// 判断是否为一元运算符
+    /** 判断是否为一元运算符 */
     private static boolean isUnary(String operator) {
         return operator.equals("u+") || operator.equals("u-");
     }
 
-    /// 返回跳过空白字符后的位置
+    /** 返回跳过空白字符后的位置 */
     private static int skipWhitespace(String input, int position) {
         while (position < input.length() && Character.isWhitespace(input.charAt(position))) {
             position++;

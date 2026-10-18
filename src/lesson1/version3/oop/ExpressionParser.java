@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/// 表达式解析器，用于将用户输入构建为 Expression 实现
+/** 表达式解析器，用于将用户输入构建为 Expression 实现 */
 public class ExpressionParser {
 
     private final Map<Character, Operation> operations;
@@ -22,12 +22,12 @@ public class ExpressionParser {
     private String input;
     private int position;
 
-    /// 创建只支持运算符的解析器，保留第二版构造方式
+    /** 创建只支持运算符的解析器，保留第二版构造方式 */
     public ExpressionParser(Map<Character, Operation> operations) {
         this(operations, new HashMap<>(), new HashMap<>());
     }
 
-    /// 创建支持函数和变量的解析器
+    /** 创建支持函数和变量的解析器 */
     public ExpressionParser(
             Map<Character, Operation> operations,
             Map<String, Function> functions,
@@ -37,7 +37,7 @@ public class ExpressionParser {
         this.variables = variables;
     }
 
-    /// 解析完整输入，并检查输入是否已经全部消费
+    /** 解析完整输入，并检查输入是否已经全部消费 */
     public Expression parse(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Expression must not be blank");
@@ -54,7 +54,7 @@ public class ExpressionParser {
         return expression;
     }
 
-    /// 根据运算符优先级构建表达式树；相同优先级按从左到右结合
+    /** 根据运算符优先级构建表达式树；相同优先级按从左到右结合 */
     private Expression parseExpression() {
         return parseExpression(Integer.MIN_VALUE);
     }
@@ -78,7 +78,7 @@ public class ExpressionParser {
         }
     }
 
-    /// 解析数字、函数调用、变量、括号表达式和一元正负号
+    /** 解析数字、函数调用、变量、括号表达式和一元正负号 */
     private Expression parseFactor() {
         skipWhitespace();
         if (match('+')) {
@@ -101,7 +101,7 @@ public class ExpressionParser {
         return parseNumber();
     }
 
-    /// 解析函数调用或自定义函数参数
+    /** 解析函数调用或自定义函数参数 */
     private Expression parseIdentifier() {
         int start = position;
         position++;
@@ -141,7 +141,7 @@ public class ExpressionParser {
         return new FunctionExpression(function, arguments.toArray(new Expression[0]));
     }
 
-    /// 解析普通数字和小数
+    /** 解析普通数字和小数 */
     private Expression parseNumber() {
         skipWhitespace();
         int start = position;
@@ -167,7 +167,7 @@ public class ExpressionParser {
         }
     }
 
-    /// 根据运算符创建二元表达式
+    /** 根据运算符创建二元表达式 */
     private Expression createBinaryExpression(Expression left, char symbol, Expression right) {
         Operation operation = operations.get(symbol);
         if (operation == null) {
@@ -176,7 +176,7 @@ public class ExpressionParser {
         return new ComplicatedExpression(left, operation, right);
     }
 
-    /// 判断当前位置是否匹配指定字符，并在匹配时消费字符
+    /** 判断当前位置是否匹配指定字符，并在匹配时消费字符 */
     private boolean match(char expected) {
         if (position < input.length() && input.charAt(position) == expected) {
             position++;
@@ -185,17 +185,17 @@ public class ExpressionParser {
         return false;
     }
 
-    /// 判断字符是否可以作为标识符首字符
+    /** 判断字符是否可以作为标识符首字符 */
     private boolean isIdentifierStart(char value) {
         return Character.isLetter(value) || value == '_';
     }
 
-    /// 判断字符是否可以出现在标识符中
+    /** 判断字符是否可以出现在标识符中 */
     private boolean isIdentifierPart(char value) {
         return Character.isLetterOrDigit(value) || value == '_';
     }
 
-    /// 跳过当前位置开始的所有空白字符
+    /** 跳过当前位置开始的所有空白字符 */
     private void skipWhitespace() {
         while (position < input.length() && Character.isWhitespace(input.charAt(position))) {
             position++;
