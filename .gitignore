@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 .kotlin
 tmp-lesson1-classes/
+target/
 
 ### Eclipse ###
 .apt_generated
